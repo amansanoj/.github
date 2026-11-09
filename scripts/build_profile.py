@@ -299,6 +299,21 @@ def activity(snapshot, theme, mobile=False):
                desc, defs, width=600 if mobile else 1200)
 
 
+def adaptive_svg(source):
+    """Use the viewer's device color scheme within a single image."""
+    palettes = {}
+    for theme, colors in THEMES.items():
+        palettes[theme] = {key: value for key, value in colors.items() if key != 'ramp'}
+        palettes[theme].update({f'ramp-{i}': value for i, value in enumerate(colors['ramp'])})
+    replacements = {color: f'var(--{key})' for key, color in palettes['dark'].items()}
+    source = re.sub(r'#[0-9a-fA-F]{6}', lambda match: replacements.get(match[0], match[0]), source)
+    def declarations(theme):
+        return ';'.join(f'--{key}:{value}' for key, value in palettes[theme].items())
+    styles = (':root{' + declarations('dark') + '}'
+              '@media(prefers-color-scheme:light){:root{' + declarations('light') + '}}')
+    return source.replace('<style>', '<style>' + styles, 1)
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -323,6 +338,9 @@ def main():
         output[f'hero-{theme}-mobile.svg'] = hero(theme, mobile=True)
         output[f'activity-{theme}.svg'] = activity(snapshot, theme)
         output[f'activity-{theme}-mobile.svg'] = activity(snapshot, theme, mobile=True)
+    for kind in ('hero', 'activity'):
+        for suffix in ('', '-mobile'):
+            output[f'{kind}{suffix}.svg'] = adaptive_svg(output[f'{kind}-dark{suffix}.svg'])
     (ROOT / 'assets').mkdir(exist_ok=True)
     target.parent.mkdir(exist_ok=True)
     for name, content in output.items():

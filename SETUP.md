@@ -48,3 +48,5 @@ The palette follows [Aman's brand tokens](https://github.com/amansanoj/brand/blo
 The self-contained SVG and cached-calendar approach was inspired by Avi Vashishta's [animated profile guide](https://www.avivashishta.com/blog/build-animated-github-profile-readme) and [contribution visualization guide](https://www.avivashishta.com/blog/animate-github-contribution-graph-portfolio). This implementation uses standard-library HTML parsing and SVG, not the portfolio article's canvas code.
 
 GitHub's [profile README requirements](https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme) and [workflow schedule documentation](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) explain publishing and scheduling behavior.
+
+The README uses one picture per graphic with adaptive SVG colors following the device color scheme. GitHub manual theme overrides may differ. Keep the adaptive hero/activity SVGs and their mobile variants; the generator also retains explicit light/dark assets for compatibility.
