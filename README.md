@@ -1,10 +1,10 @@
-<a href="https://github.com/amansanoj/.github#gh-dark-mode-only">
+<a href="#gh-dark-mode-only">
 <picture>
   <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark-mobile.svg">
   <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark.svg#gh-dark-mode-only" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
 </picture>
 </a>
-<a href="https://github.com/amansanoj/.github#gh-light-mode-only">
+<a href="#gh-light-mode-only">
 <picture>
   <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light-mobile.svg">
   <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light.svg#gh-light-mode-only" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
@@ -37,13 +37,13 @@ I build ESP32 firmware, native macOS utilities, and web applications. My project
 
 <br>
 
-<a href="https://github.com/amansanoj/.github#gh-dark-mode-only">
+<a href="#gh-dark-mode-only">
 <picture>
   <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark-mobile.svg">
   <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark.svg#gh-dark-mode-only" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
 </picture>
 </a>
-<a href="https://github.com/amansanoj/.github#gh-light-mode-only">
+<a href="#gh-light-mode-only">
 <picture>
   <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light-mobile.svg">
   <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light.svg#gh-light-mode-only" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
