@@ -29,10 +29,12 @@ I build things I want to use: a watch-party server for friends, an Apple Music d
 <br>
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark-mobile.svg">
+  <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark-mobile.svg">
+  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark.svg#gh-dark-mode-only" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
+</picture>
+<picture>
   <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light-mobile.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark.svg">
-  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light.svg" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
+  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light.svg#gh-light-mode-only" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
 </picture>
 
 <sub>Built from my public GitHub activity. Refreshed daily. <a href="https://github.com/amansanoj/.github/blob/main/scripts/build_profile.py">How it's made ↗</a></sub>
