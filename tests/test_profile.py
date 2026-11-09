@@ -48,15 +48,38 @@ class ProfileTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             profile.validate_days(days)
 
+    def test_mobile_calendar_preserves_annual_stats_and_recent_dates(self):
+        days = profile.parse_calendar(fixture())
+        snapshot = {'days': days, 'snapshot_date': '2025-12-31'}
+        last = date.fromisoformat(days[-1]['date'])
+        cutoff = last - timedelta(days=(last.weekday() + 1) % 7, weeks=25)
+        expected = [d for d in days if date.fromisoformat(d['date']) >= cutoff]
+        for theme in profile.THEMES:
+            root = ET.fromstring(profile.activity(snapshot, theme, mobile=True))
+            ns = {'s': 'http://www.w3.org/2000/svg'}
+            cells = root.findall('.//s:rect[s:title]', ns)
+            self.assertEqual(root.attrib['width'], '600')
+            self.assertEqual(len(cells), len(expected))
+            self.assertEqual([cell.find('s:title', ns).text for cell in cells],
+                             [f"{profile.pretty(date.fromisoformat(d['date']))}: "
+                              f"{profile.plural(d['count'], 'contribution')}" for d in expected])
+            labels = [node.text for node in root.findall('s:text', ns)]
+            self.assertIn('1,234', labels)  # Annual activity predates the mobile window.
+            self.assertIn('Recent 26 weeks · weekly totals', labels)
+            for cell in cells:
+                self.assertGreaterEqual(float(cell.attrib['x']), 0)
+                self.assertLessEqual(float(cell.attrib['x']) + float(cell.attrib['width']), 600)
+
     def test_zero_activity_and_svg_safety(self):
         days = profile.parse_calendar(fixture())
         for day in days:
             day.update(count=0, level=0)
         snapshot = {'days': days, 'snapshot_date': '2025-12-31'}
         for theme in profile.THEMES:
-            for source in [profile.hero(theme), profile.activity(snapshot, theme)]:
+            for source in [profile.hero(theme), profile.activity(snapshot, theme),
+                           profile.activity(snapshot, theme, mobile=True)]:
                 root = ET.fromstring(source)
-                self.assertEqual(root.attrib['width'], '1200')
+                self.assertIn(root.attrib['width'], ('600', '1200'))
                 self.assertIn('prefers-reduced-motion', source)
                 for element in root.iter():
                     self.assertNotIn(element.tag.split('}')[-1], ['script', 'foreignObject', 'image'])

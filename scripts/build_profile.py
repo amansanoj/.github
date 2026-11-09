@@ -121,9 +121,9 @@ def line(x1, y1, x2, y2, extra=''):
     return f'<path d="{d}" class="rule" {extra}/>'
 
 
-def svg(body, theme, height, title, desc, defs=''):
+def svg(body, theme, height, title, desc, defs='', width=1200):
     t = THEMES[theme]
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 {height}" width="1200" height="{height}" role="img" aria-labelledby="title desc">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" role="img" aria-labelledby="title desc">
 <title id="title">{escape(title)}</title><desc id="desc">{escape(desc)}</desc>
 <defs>{defs}</defs>
 <style>
@@ -140,7 +140,7 @@ text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, A
 @keyframes blink {{0%,100% {{opacity:1}} 50% {{opacity:.25}}}}
 @media (prefers-reduced-motion:reduce) {{.trace,.reveal,.sweep,.led {{animation:none!important}}}}
 </style>
-<rect x=".5" y=".5" width="1199" height="{height - 1}" rx="12" fill="{t['bg']}" stroke="{t['line']}"/>
+<rect x=".5" y=".5" width="{width - 1}" height="{height - 1}" rx="12" fill="{t['bg']}" stroke="{t['line']}"/>
 {body}
 </svg>\n'''
 
@@ -197,7 +197,7 @@ def hero(theme):
 
 # ---------------------------------------------------------------- activity
 
-def activity(snapshot, theme):
+def activity(snapshot, theme, mobile=False):
     t = THEMES[theme]
     days = snapshot['days']
     total = sum(d['count'] for d in days)
@@ -205,33 +205,44 @@ def activity(snapshot, theme):
     streak = longest_streak(days)
     first = date.fromisoformat(days[0]['date'])
     last = date.fromisoformat(days[-1]['date'])
-    sunday = first - timedelta(days=(first.weekday() + 1) % 7)
+    # Keep annual headline statistics; show 26 calendar columns on small screens.
+    displayed_days = days
+    if mobile:
+        last_sunday = last - timedelta(days=(last.weekday() + 1) % 7)
+        cutoff = last_sunday - timedelta(weeks=25)
+        displayed_days = [d for d in days if date.fromisoformat(d['date']) >= cutoff]
+    displayed_first = date.fromisoformat(displayed_days[0]['date'])
+    sunday = displayed_first - timedelta(days=(displayed_first.weekday() + 1) % 7)
     n_weeks = (last - sunday).days // 7 + 1
     busiest = max(days, key=lambda d: d['count'])
 
     # Grid geometry: square cells on a shared pitch, with a gutter for weekday labels.
-    x0, x1, top = 84, 1152, 226
+    x0, x1, top = (68, 564, 318) if mobile else (84, 1152, 226)
+    left = 36 if mobile else 48
     pitch = (x1 - x0) / n_weeks
     cell = min(17, pitch - 4)
     grid_bottom = top + 6 * pitch + cell
 
-    # Header: title left, three stats right.
-    b = text(48, 70, 'A year at the workbench.', 30, 'fg', 'font-weight="600" letter-spacing="-.7"')
-    b += text(48, 96, 'Public GitHub contributions, one square per day.', 14, 'muted')
-    stats = [(1152, f'{total:,}', 'Contributions', 44, 'blue'),
-             (968, f'{active}', 'Active days', 30, 'fg'),
-             (812, f'{streak}', 'Best streak (days)', 30, 'fg')]
+    # Stack annual statistics below the title on narrow screens.
+    b = text(left, 58 if mobile else 70, 'A year at the workbench.', 30, 'fg', 'font-weight="600" letter-spacing="-.7"')
+    b += text(left, 84 if mobile else 96, 'Public GitHub contributions, one square per day.', 14, 'muted')
+    stats = ([(180, f'{total:,}', 'Contributions', 36, 'blue'),
+              (354, f'{active}', 'Active days', 30, 'fg'),
+              (564, f'{streak}', 'Best streak (days)', 30, 'fg')] if mobile else
+             [(1152, f'{total:,}', 'Contributions', 44, 'blue'),
+              (968, f'{active}', 'Active days', 30, 'fg'),
+              (812, f'{streak}', 'Best streak (days)', 30, 'fg')])
     for x, value, label, size, color in stats:
-        b += text(x, 70, value, size, color, 'text-anchor="end" font-weight="600" letter-spacing="-1"')
-        b += text(x, 94, label, 12, 'muted', 'text-anchor="end"')
+        b += text(x, 142 if mobile else 70, value, size, color, 'text-anchor="end" font-weight="600" letter-spacing="-1"')
+        b += text(x, 166 if mobile else 94, label, 12, 'muted', 'text-anchor="end"')
 
     # Weekly totals sparkline, aligned to the grid columns.
     weeks = [0] * n_weeks
-    for d in days:
+    for d in displayed_days:
         weeks[((date.fromisoformat(d['date']) - sunday).days) // 7] += d['count']
     peak = max(weeks) or 1
     peak_i = weeks.index(max(weeks))
-    base, height = 190, 46
+    base, height = (282, 46) if mobile else (190, 46)
     pts = [(x0 + i * pitch + cell / 2, base - n / peak * height) for i, n in enumerate(weeks)]
     path = 'M' + ' L'.join(f'{x:.2f} {y:.2f}' for x, y in pts)
     area = f'{path} L{pts[-1][0]:.2f} {base} L{pts[0][0]:.2f} {base} Z'
@@ -242,10 +253,12 @@ def activity(snapshot, theme):
     b += f'<circle cx="{px:.2f}" cy="{py:.2f}" r="3.5" fill="{t["gold"]}" stroke="{t["bg"]}" stroke-width="2"/>'
     anchor_x = min(max(px, x0 + 90), x1 - 90)
     b += text(f'{anchor_x:.2f}', f'{py - 12:.2f}', f'Peak week: {peak:,}', 12, 'muted', 'text-anchor="middle"')
+    if mobile:
+        b += text(left, 200, 'Recent 26 weeks · weekly totals', 12, 'muted')
     # Caption goes on whichever side the peak is not.
-    if px < (x0 + x1) / 2:
+    if not mobile and px < (x0 + x1) / 2:
         b += text(x1, 134, 'Weekly totals', 12, 'muted', 'text-anchor="end"')
-    else:
+    elif not mobile:
         b += text(x0, 134, 'Weekly totals', 12, 'muted')
 
     # Month labels (first full week of each month) and weekday labels.
@@ -256,10 +269,10 @@ def activity(snapshot, theme):
             b += text(f'{x0 + i * pitch:.2f}', top - 12, start.strftime('%b'), 12, 'muted')
             previous = i
     for row, name in ((1, 'Mon'), (3, 'Wed'), (5, 'Fri')):
-        b += text(48, f'{top + row * pitch + cell / 2 + 4:.2f}', name, 12, 'muted')
+        b += text(32 if mobile else 48, f'{top + row * pitch + cell / 2 + 4:.2f}', name, 12, 'muted')
 
     # Heatmap.
-    for d in days:
+    for d in displayed_days:
         day = date.fromisoformat(d['date'])
         col, row = divmod((day - sunday).days, 7)
         x, y = x0 + col * pitch, top + row * pitch
@@ -271,14 +284,18 @@ def activity(snapshot, theme):
 
     # Footer: provenance left, legend right.
     fy = grid_bottom + 34
-    b += line(48, fy - 26, x1, fy - 26)
-    b += text(48, fy, f'{pretty(first)} to {pretty(last)}  ·  updated {snapshot["snapshot_date"]}', 12, 'muted')
+    b += line(left, fy - 26, x1, fy - 26)
+    if mobile:
+        b += text(left, fy, f'{pretty(displayed_first)} to {pretty(last)}', 12, 'muted')
+        b += text(left, fy + 24, f'Updated {snapshot["snapshot_date"]} · stats cover the full year', 12, 'muted')
+    else:
+        b += text(left, fy, f'{pretty(first)} to {pretty(last)}  ·  updated {snapshot["snapshot_date"]}', 12, 'muted')
     b += text(x1, fy, 'More', 12, 'muted', 'text-anchor="end"')
     for i, color in enumerate(t['ramp']):
         b += f'<rect x="{x1 - 46 - (5 - i) * 17:.0f}" y="{fy - 11}" width="12" height="12" rx="3" fill="{color}"/>'
     b += text(x1 - 46 - 5 * 17 - 6, fy, 'Less', 12, 'muted', 'text-anchor="end"')
 
-    height_total = int(fy + 28)
+    height_total = int(fy + (52 if mobile else 28))
     defs = (f'<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{t["gold"]}" stop-opacity=".28"/>'
             f'<stop offset="1" stop-color="{t["gold"]}" stop-opacity="0"/></linearGradient>')
@@ -286,7 +303,10 @@ def activity(snapshot, theme):
             f'Longest streak {streak} days. Busiest day {pretty(date.fromisoformat(busiest["date"]))} '
             f'with {busiest["count"]}. Weekly totals are drawn above the calendar. '
             f'Snapshot {snapshot["snapshot_date"]}.')
-    return svg(b, theme, height_total, 'A year at the workbench — public GitHub activity', desc, defs)
+    if mobile:
+        desc += ' Calendar and weekly totals show the most recent 26 weeks; headline statistics cover the full year.'
+    return svg(b, theme, height_total, 'A year at the workbench — public GitHub activity',
+               desc, defs, width=600 if mobile else 1200)
 
 
 # ---------------------------------------------------------------- main
@@ -311,6 +331,7 @@ def main():
     for theme in THEMES:
         output[f'hero-{theme}.svg'] = hero(theme)
         output[f'activity-{theme}.svg'] = activity(snapshot, theme)
+        output[f'activity-{theme}-mobile.svg'] = activity(snapshot, theme, mobile=True)
     (ROOT / 'assets').mkdir(exist_ok=True)
     target.parent.mkdir(exist_ok=True)
     for name, content in output.items():

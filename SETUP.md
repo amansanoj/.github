@@ -34,7 +34,7 @@ python3 -m unittest discover -s tests -v
 
 - Edit profile text and links in `README.md`.
 - Edit layout, wording, and colors in `scripts/build_profile.py`, then run it again.
-- Keep all four SVGs: `<picture>` chooses the appropriate light/dark asset.
+- Keep all six SVGs: `<picture>` chooses the appropriate light/dark asset and uses the mobile calendar at viewport widths up to 768px. The mobile grid and sparkline show the latest 26 calendar weeks; headline statistics still cover the full year.
 - Motion runs once and settles. `prefers-reduced-motion` renders a still version. Static SVG renderers display the finished artwork.
 - Images contain no scripts, external fonts, or remote image dependencies. Important project descriptions remain selectable native README text.
 - Daily counts and activity shades come from the public calendar. The headline is the sum of the displayed daily counts, not a lifetime total. The line above the grid represents weekly totals on a linear scale.

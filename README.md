@@ -29,6 +29,8 @@ I build things I want to use: a watch-party server for friends, an Apple Music d
 <br>
 
 <picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark-mobile.svg">
+  <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light-mobile.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-dark.svg">
   <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/activity-light.svg" alt="Aman Sanoj's public GitHub contribution calendar, with weekly totals. Snapshot date and contribution count are printed in the graphic." width="100%">
 </picture>
