@@ -149,25 +149,35 @@ text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, A
 
 def hero(theme, mobile=False):
     t=THEMES[theme]
+
+    def entrance(content, delay):
+        return f'<g class="reveal" style="animation-delay:{delay:.2f}s">{content}</g>'
+
     if mobile:
         b = text(36, 104, 'Aman', 78, 'fg', 'font-weight="700" letter-spacing="-3"')
         b += text(36, 182, 'Sanoj', 78, 'fg', 'font-weight="700" letter-spacing="-3"')
         b += text(38, 230, 'Software & Embedded Systems', 23, 'blue')
         b += text(38, 264, 'Swift · TypeScript · Go · C++', 16, 'muted mono')
+        b = entrance(b, 0.08)
         b += '<g transform="translate(-614 252)">'
     else:
         b=text(48,139,'Aman',108,'fg','font-weight="700" letter-spacing="-4"')+text(48,246,'Sanoj',108,'fg','font-weight="700" letter-spacing="-4"')
         b+=text(50,310,'Software & Embedded Systems',23,'blue')
         b+=text(50,350,'Swift · TypeScript · Go · C++',16,'muted mono')
+        b = entrance(b, 0.08)
+    b += '<g class="reveal" style="animation-delay:.24s">'
     b+=f'<rect x="650" y="48" width="502" height="344" rx="10" fill="{t["panel"]}" stroke="{t["line"]}"/>'
     b+=f'<path d="M678 66h11l5 5v13h-16z M689 66v6h5" fill="none" stroke="{t["muted"]}" stroke-width="1.2"/>'
     b+=text(708,81,'projects.toml',13,'muted mono')+line(650,102,1152,102)
+    b += '</g>'
     rows=[('Apps','Macro Pad','SwiftUI / CoreBluetooth'),('Web','Tether','TypeScript / Bun'),('Firmware','NeonOS','C++ / ESP32')]
     for i,(category,name,stack) in enumerate(rows):
      y=139+i*78
+     b += f'<g class="reveal" style="animation-delay:{.42 + i * .18:.2f}s">'
      b+=text(678,y,f'[{category}]',15,'blue mono')
      b+=f'<text x="678" y="{y+27}" font-size="14" class="mono"><tspan fill="{t["muted"]}">project = </tspan><tspan fill="{t["gold"]}">"{name}"</tspan></text>'
      b+=text(678,y+49,'# '+stack,12,'muted mono')
+     b += '</g>'
     if mobile:
         b += '</g>'
     return svg(b, theme, 680 if mobile else 440, "Aman Sanoj",
