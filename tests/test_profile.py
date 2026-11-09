@@ -65,7 +65,7 @@ class ProfileTests(unittest.TestCase):
                               f"{profile.plural(d['count'], 'contribution')}" for d in expected])
             labels = [node.text for node in root.findall('s:text', ns)]
             self.assertIn('1,234', labels)  # Annual activity predates the mobile window.
-            self.assertIn('Recent 26 weeks · weekly totals', labels)
+            self.assertIn('Recent 26 Weeks · Weekly Totals', labels)
             for cell in cells:
                 self.assertGreaterEqual(float(cell.attrib['x']), 0)
                 self.assertLessEqual(float(cell.attrib['x']) + float(cell.attrib['width']), 600)

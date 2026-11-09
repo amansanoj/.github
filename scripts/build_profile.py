@@ -224,14 +224,14 @@ def activity(snapshot, theme, mobile=False):
     grid_bottom = top + 6 * pitch + cell
 
     # Stack annual statistics below the title on narrow screens.
-    b = text(left, 58 if mobile else 70, 'A year at the workbench.', 30, 'fg', 'font-weight="600" letter-spacing="-.7"')
-    b += text(left, 84 if mobile else 96, 'Public GitHub contributions, one square per day.', 14, 'muted')
+    b = text(left, 58 if mobile else 70, 'GitHub Activity', 30, 'fg', 'font-weight="600" letter-spacing="-.7"')
+    b += text(left, 84 if mobile else 96, 'Public Contributions', 14, 'muted')
     stats = ([(180, f'{total:,}', 'Contributions', 36, 'blue'),
-              (354, f'{active}', 'Active days', 30, 'fg'),
-              (564, f'{streak}', 'Best streak (days)', 30, 'fg')] if mobile else
+              (354, f'{active}', 'Active Days', 30, 'fg'),
+              (564, f'{streak}', 'Best Streak (Days)', 30, 'fg')] if mobile else
              [(1152, f'{total:,}', 'Contributions', 44, 'blue'),
-              (968, f'{active}', 'Active days', 30, 'fg'),
-              (812, f'{streak}', 'Best streak (days)', 30, 'fg')])
+              (968, f'{active}', 'Active Days', 30, 'fg'),
+              (812, f'{streak}', 'Best Streak (Days)', 30, 'fg')])
     for x, value, label, size, color in stats:
         b += text(x, 142 if mobile else 70, value, size, color, 'text-anchor="end" font-weight="600" letter-spacing="-1"')
         b += text(x, 166 if mobile else 94, label, 12, 'muted', 'text-anchor="end"')
@@ -252,14 +252,14 @@ def activity(snapshot, theme, mobile=False):
     px, py = pts[peak_i]
     b += f'<circle cx="{px:.2f}" cy="{py:.2f}" r="3.5" fill="{t["gold"]}" stroke="{t["bg"]}" stroke-width="2"/>'
     anchor_x = min(max(px, x0 + 90), x1 - 90)
-    b += text(f'{anchor_x:.2f}', f'{py - 12:.2f}', f'Peak week: {peak:,}', 12, 'muted', 'text-anchor="middle"')
+    b += text(f'{anchor_x:.2f}', f'{py - 12:.2f}', f'Peak Week: {peak:,}', 12, 'muted', 'text-anchor="middle"')
     if mobile:
-        b += text(left, 200, 'Recent 26 weeks · weekly totals', 12, 'muted')
+        b += text(left, 200, 'Recent 26 Weeks · Weekly Totals', 12, 'muted')
     # Caption goes on whichever side the peak is not.
     if not mobile and px < (x0 + x1) / 2:
-        b += text(x1, 134, 'Weekly totals', 12, 'muted', 'text-anchor="end"')
+        b += text(x1, 134, 'Weekly Totals', 12, 'muted', 'text-anchor="end"')
     elif not mobile:
-        b += text(x0, 134, 'Weekly totals', 12, 'muted')
+        b += text(x0, 134, 'Weekly Totals', 12, 'muted')
 
     # Month labels (first full week of each month) and weekday labels.
     previous = -99
@@ -305,7 +305,7 @@ def activity(snapshot, theme, mobile=False):
             f'Snapshot {snapshot["snapshot_date"]}.')
     if mobile:
         desc += ' Calendar and weekly totals show the most recent 26 weeks; headline statistics cover the full year.'
-    return svg(b, theme, height_total, 'A year at the workbench — public GitHub activity',
+    return svg(b, theme, height_total, 'GitHub Activity — Public Contributions',
                desc, defs, width=600 if mobile else 1200)
 
 
