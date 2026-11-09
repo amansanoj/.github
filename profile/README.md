@@ -5,24 +5,25 @@
 
 <p align="right"><a href="https://amansanoj.is-a.dev">Website ↗</a> &nbsp; / &nbsp; <a href="https://github.com/amansanoj?tab=repositories">All repositories ↗</a></p>
 
-I build things I want to use: a watch-party server for friends, an Apple Music display for my desk, and a bridge that gets a Bluetooth light into Apple Home. Sometimes the interface is a browser. Sometimes it's a terminal or a tiny OLED.
+I build ESP32 firmware, native macOS utilities, and web applications. My projects include BLE device integrations, firmware update systems, and synchronized media playback.
 
-### Selected work
+### Selected Projects
 
-| Project | What it does | Built with |
+| Project | Implementation | Stack |
 | :--- | :--- | :--- |
-| **[NeonOS ↗](https://github.com/amansanoj/neon-os)** | Connects a BLE RGB light to Apple Home, with an OLED menu and one-button controls. | C++ · ESP32 · HomeSpan |
-| **[Cardputer Now Playing ↗](https://github.com/amansanoj/cardputer-nowplaying)** | Puts Apple Music on a pocket-sized display, with album art, wireless playback controls, and a macOS companion. | C++ · Python · BLE |
-| **[Tether ↗](https://github.com/amansanoj/tether)** | A watch-party server with synchronized playback, live chat, and a dashboard for the host. | TypeScript · Bun · WebSockets |
-| **[Terminal portfolio ↗](https://github.com/amansanoj/tui-portfolio)** | A portfolio you explore over SSH. Built in Go, with content pulled from Notion. | Go · Bubble Tea · Wish |
+| **[NeonOS ↗](https://github.com/amansanoj/neon-os)** | BLE-to-HomeKit bridge with OLED controls, signed HTTPS firmware updates, and boot-health rollback. Includes native regression and fault tests; OTA hardware acceptance is still pending. | C++ · ESP32 · HomeSpan |
+| **[Macro Pad ↗](https://github.com/amansanoj/macro-pad)** | Four-key BLE controller with a native macOS companion. Versioned input packets, duplicate-event suppression, automatic reconnection, and per-application assignments. | C++ · SwiftUI · CoreBluetooth |
+| **[Tether ↗](https://github.com/amansanoj/tether)** | Watch-party server with an authoritative playback clock, drift correction, linked rooms, reconnect recovery, and host controls. | TypeScript · Bun · WebSockets |
+| **[Cardputer Now Playing ↗](https://github.com/amansanoj/cardputer-nowplaying)** | Apple Music display and controller with a macOS bridge, BLE artwork transfer, on-device caching, and physical playback controls. | C++ · Python · ESP32-S3 |
 
 <details>
-<summary>A few more things I've built</summary>
+<summary>Other Projects</summary>
 <br>
 
-- **[NanoLink](https://github.com/amansanoj/nanolink-api)** — a Bun + Hono URL shortener with expiring links, click analytics, and QR codes.
-- **[Repo OG Generator](https://github.com/amansanoj/repo-og-generator)** — social preview images for repositories.
-- **[Brand](https://github.com/amansanoj/brand)** — the shared colors, typography, and assets behind my projects.
+- **[Terminal Portfolio](https://github.com/amansanoj/tui-portfolio)**: SSH interface built with Go, Bubble Tea, and Wish; project content refreshes from Notion.
+- **[NanoLink](https://github.com/amansanoj/nanolink-api)**: Bun and Hono URL shortener with expiring links, click limits, analytics, and QR codes.
+- **[UI Components](https://github.com/amansanoj/ui)**: React component workspace with shared design tokens, ESM/CJS builds, and Changesets releases.
+- **[4-Bit Pincode](https://github.com/amansanoj/hackclub-embassy-4-bit-pincode)**: Sequential passcode circuit using a shift register and discrete components, without a microcontroller.
 
 </details>
 
