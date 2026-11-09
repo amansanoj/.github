@@ -76,7 +76,7 @@ class ProfileTests(unittest.TestCase):
             day.update(count=0, level=0)
         snapshot = {'days': days, 'snapshot_date': '2025-12-31'}
         for theme in profile.THEMES:
-            for source in [profile.hero(theme), profile.activity(snapshot, theme),
+            for source in [profile.hero(theme), profile.hero(theme, mobile=True), profile.activity(snapshot, theme),
                            profile.activity(snapshot, theme, mobile=True)]:
                 root = ET.fromstring(source)
                 self.assertIn(root.attrib['width'], ('600', '1200'))

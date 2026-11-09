@@ -1,7 +1,15 @@
+<a href="https://github.com/amansanoj/.github#gh-dark-mode-only">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark.svg">
-  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light.svg" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
+  <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark-mobile.svg">
+  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark.svg#gh-dark-mode-only" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
 </picture>
+</a>
+<a href="https://github.com/amansanoj/.github#gh-light-mode-only">
+<picture>
+  <source media="(max-width: 768px)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light-mobile.svg">
+  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light.svg#gh-light-mode-only" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
+</picture>
+</a>
 
 <p align="right"><a href="https://amansanoj.is-a.dev">Website ↗</a> &nbsp; / &nbsp; <a href="https://github.com/amansanoj?tab=repositories">All repositories ↗</a></p>
 

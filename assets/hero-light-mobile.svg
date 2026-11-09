@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 680" width="600" height="680" role="img" aria-labelledby="title desc">
+<title id="title">Aman Sanoj</title><desc id="desc">Software and embedded systems. Apps, web applications, and firmware.</desc>
+<defs></defs>
+<style>
+text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+.fg {fill:#1a1a1a} .muted {fill:#62626a} .blue {fill:#263450} .gold {fill:#9b5c0a}
+.mono {font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;letter-spacing:1.2px}
+.rule {fill:none;stroke:#dcdde0;stroke-width:1}
+.trace {fill:none;stroke:#9b5c0a;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1 1;animation:draw 1.8s ease-out backwards}
+.sweep {fill:none;stroke:#9b5c0a;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1 1;animation:draw 1.8s ease-out backwards}
+.reveal {animation:arrive .55s ease-out backwards}
+.led {animation:blink 2.6s ease-in-out infinite}
+@keyframes draw {from {stroke-dashoffset:1;opacity:0} to {stroke-dashoffset:0;opacity:1}}
+@keyframes arrive {from {opacity:0;transform:translateY(5px)} to {opacity:1;transform:translateY(0)}}
+@keyframes blink {0%,100% {opacity:1} 50% {opacity:.25}}
+@media (prefers-reduced-motion:reduce) {.trace,.reveal,.sweep,.led {animation:none!important}}
+</style>
+<rect x=".5" y=".5" width="599" height="679" rx="12" fill="#fafafa" stroke="#dcdde0"/>
+<text x="36" y="104" class="fg" font-size="78" font-weight="700" letter-spacing="-3">Aman</text><text x="36" y="182" class="fg" font-size="78" font-weight="700" letter-spacing="-3">Sanoj</text><text x="38" y="230" class="blue" font-size="23" >Software &amp; Embedded Systems</text><text x="38" y="264" class="muted mono" font-size="16" >Swift · TypeScript · Go · C++</text><g transform="translate(-614 252)"><rect x="650" y="48" width="502" height="344" rx="10" fill="#f0f1f3" stroke="#dcdde0"/><path d="M678 66h11l5 5v13h-16z M689 66v6h5" fill="none" stroke="#62626a" stroke-width="1.2"/><text x="708" y="81" class="muted mono" font-size="13" >projects.toml</text><path d="M650 102H1152" class="rule" /><text x="678" y="139" class="blue mono" font-size="15" >[Apps]</text><text x="678" y="166" font-size="14" class="mono"><tspan fill="#62626a">project = </tspan><tspan fill="#9b5c0a">"Macro Pad"</tspan></text><text x="678" y="188" class="muted mono" font-size="12" ># SwiftUI / CoreBluetooth</text><text x="678" y="217" class="blue mono" font-size="15" >[Web]</text><text x="678" y="244" font-size="14" class="mono"><tspan fill="#62626a">project = </tspan><tspan fill="#9b5c0a">"Tether"</tspan></text><text x="678" y="266" class="muted mono" font-size="12" ># TypeScript / Bun</text><text x="678" y="295" class="blue mono" font-size="15" >[Firmware]</text><text x="678" y="322" font-size="14" class="mono"><tspan fill="#62626a">project = </tspan><tspan fill="#9b5c0a">"NeonOS"</tspan></text><text x="678" y="344" class="muted mono" font-size="12" ># C++ / ESP32</text></g>
+</svg>

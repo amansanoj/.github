@@ -147,11 +147,18 @@ text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, A
 
 # ---------------------------------------------------------------- hero
 
-def hero(theme):
+def hero(theme, mobile=False):
     t=THEMES[theme]
-    b=text(48,139,'Aman',108,'fg','font-weight="700" letter-spacing="-4"')+text(48,246,'Sanoj',108,'fg','font-weight="700" letter-spacing="-4"')
-    b+=text(50,310,'Software & Embedded Systems',23,'blue')
-    b+=text(50,350,'Swift · TypeScript · Go · C++',16,'muted mono')
+    if mobile:
+        b = text(36, 104, 'Aman', 78, 'fg', 'font-weight="700" letter-spacing="-3"')
+        b += text(36, 182, 'Sanoj', 78, 'fg', 'font-weight="700" letter-spacing="-3"')
+        b += text(38, 230, 'Software & Embedded Systems', 23, 'blue')
+        b += text(38, 264, 'Swift · TypeScript · Go · C++', 16, 'muted mono')
+        b += '<g transform="translate(-614 252)">'
+    else:
+        b=text(48,139,'Aman',108,'fg','font-weight="700" letter-spacing="-4"')+text(48,246,'Sanoj',108,'fg','font-weight="700" letter-spacing="-4"')
+        b+=text(50,310,'Software & Embedded Systems',23,'blue')
+        b+=text(50,350,'Swift · TypeScript · Go · C++',16,'muted mono')
     b+=f'<rect x="650" y="48" width="502" height="344" rx="10" fill="{t["panel"]}" stroke="{t["line"]}"/>'
     b+=f'<path d="M678 66h11l5 5v13h-16z M689 66v6h5" fill="none" stroke="{t["muted"]}" stroke-width="1.2"/>'
     b+=text(708,81,'projects.toml',13,'muted mono')+line(650,102,1152,102)
@@ -161,8 +168,11 @@ def hero(theme):
      b+=text(678,y,f'[{category}]',15,'blue mono')
      b+=f'<text x="678" y="{y+27}" font-size="14" class="mono"><tspan fill="{t["muted"]}">project = </tspan><tspan fill="{t["gold"]}">"{name}"</tspan></text>'
      b+=text(678,y+49,'# '+stack,12,'muted mono')
-    return svg(b, theme, 440, "Aman Sanoj",
-               "Software and embedded systems. Apps, web applications, and firmware.")
+    if mobile:
+        b += '</g>'
+    return svg(b, theme, 680 if mobile else 440, "Aman Sanoj",
+               "Software and embedded systems. Apps, web applications, and firmware.",
+               width=600 if mobile else 1200)
 
 
 # ---------------------------------------------------------------- activity
@@ -300,6 +310,7 @@ def main():
     output = {}
     for theme in THEMES:
         output[f'hero-{theme}.svg'] = hero(theme)
+        output[f'hero-{theme}-mobile.svg'] = hero(theme, mobile=True)
         output[f'activity-{theme}.svg'] = activity(snapshot, theme)
         output[f'activity-{theme}-mobile.svg'] = activity(snapshot, theme, mobile=True)
     (ROOT / 'assets').mkdir(exist_ok=True)
