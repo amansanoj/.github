@@ -148,51 +148,21 @@ text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, A
 # ---------------------------------------------------------------- hero
 
 def hero(theme):
-    t = THEMES[theme]
-    b = text(44, 142, 'Aman', 124, 'fg', 'font-weight="700" letter-spacing="-5"')
-    b += text(44, 254, 'Sanoj.', 124, 'fg', 'font-weight="700" letter-spacing="-5"')
-    b += text(48, 314, 'Software, down to the pins.', 26, 'blue', 'letter-spacing="-.4"')
-    b += text(48, 350, 'Web apps. Terminal interfaces. Connected hardware.', 18, 'muted')
-
-    # Three equal cards on one grid, joined by a single signal bus on the left.
-    # Original vector drawing: no JavaScript, no external image requests.
-    cx, cw, ch, gap, top = 792, 360, 84, 30, 60
-    ys = [top + i * (ch + gap) for i in range(3)]
-    mid = [y + ch // 2 for y in ys]
-    bus = cx - 30
-
-    b += f'<path d="M{cx} {mid[0]}H{bus}V{mid[2]}H{cx}" pathLength="1" class="trace"/>'
-    b += f'<path d="M{bus} {mid[1]}H{cx}" pathLength="1" class="trace" style="animation-delay:.9s"/>'
-    b += f'<circle cx="{bus}" cy="{mid[1]}" r="3.5" fill="{t["gold"]}" class="reveal" style="animation-delay:.9s"/>'
-
-    cards = [
-        ('01 / WEB', 'interface', 'view → event → request'),
-        ('02 / TUI', 'logic', 'input → state → output'),
-        ('03 / HARDWARE', 'ESP32', 'pin → signal → light'),
-    ]
-    for i, (idx, title, sub) in enumerate(cards):
-        y = ys[i]
-        chip = i == 2
-        b += f'<g class="reveal" style="animation-delay:{.1 + i * .3:.2f}s">'
-        if chip:  # DIP-style pins on top and bottom edges
-            for px in range(cx + 20, cx + cw - 10, 20):
-                b += f'<path d="M{px} {y - 7}v7M{px} {y + ch}v7" stroke="{t["blue"]}" stroke-width="2.5"/>'
-        b += f'<rect x="{cx}" y="{y}" width="{cw}" height="{ch}" rx="{5 if chip else 8}" fill="{t["panel"]}" stroke="{t["blue"] if chip else t["line"]}"/>'
-        b += text(cx + 22, y + 28, idx, 11, 'muted', 'letter-spacing="1.2"')
-        b += text(cx + 22, y + 53, title, 21, 'blue', 'font-weight="600" letter-spacing="1"' if chip else 'font-weight="600"')
-        b += text(cx + 22, y + 75, sub, 13, 'muted')
-        if i == 0:  # window chrome
-            for k in range(3):
-                b += f'<circle cx="{cx + cw - 56 + k * 14}" cy="{y + 24}" r="3" fill="{t["muted"]}" opacity=".6"/>'
-        elif i == 1:  # prompt
-            b += text(cx + cw - 22, y + 30, '>_', 16, 'gold mono', 'text-anchor="end" font-weight="700"')
-        else:  # status LED
-            b += f'<circle cx="{cx + cw - 26}" cy="{y + 24}" r="4" fill="{t["gold"]}" class="led"/>'
-        b += '</g>'
-
-    return svg(b, theme, 440, 'Aman Sanoj — software, down to the pins.',
-               'Developer in Dubai, UAE. Web apps, terminal interfaces, and connected hardware. '
-               'A browser, terminal, and ESP32 joined by an animated signal bus.')
+    t=THEMES[theme]
+    b=text(48,139,'Aman',108,'fg','font-weight="700" letter-spacing="-4"')+text(48,246,'Sanoj',108,'fg','font-weight="700" letter-spacing="-4"')
+    b+=text(50,310,'Software & Embedded Systems',23,'blue')
+    b+=text(50,350,'Swift · TypeScript · Go · C++',16,'muted mono')
+    b+=f'<rect x="650" y="48" width="502" height="344" rx="10" fill="{t["panel"]}" stroke="{t["line"]}"/>'
+    b+=f'<path d="M678 66h11l5 5v13h-16z M689 66v6h5" fill="none" stroke="{t["muted"]}" stroke-width="1.2"/>'
+    b+=text(708,81,'projects.toml',13,'muted mono')+line(650,102,1152,102)
+    rows=[('Apps','Macro Pad','SwiftUI / CoreBluetooth'),('Web','Tether','TypeScript / Bun'),('Firmware','NeonOS','C++ / ESP32')]
+    for i,(category,name,stack) in enumerate(rows):
+     y=139+i*78
+     b+=text(678,y,f'[{category}]',15,'blue mono')
+     b+=f'<text x="678" y="{y+27}" font-size="14" class="mono"><tspan fill="{t["muted"]}">project = </tspan><tspan fill="{t["gold"]}">"{name}"</tspan></text>'
+     b+=text(678,y+49,'# '+stack,12,'muted mono')
+    return svg(b, theme, 440, "Aman Sanoj",
+               "Software and embedded systems. Apps, web applications, and firmware.")
 
 
 # ---------------------------------------------------------------- activity

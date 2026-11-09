@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-dark.svg">
-  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light.svg" alt="Aman Sanoj — software, down to the pins. Web apps, terminal interfaces, and connected hardware. Dubai, UAE." width="100%">
+  <img src="https://raw.githubusercontent.com/amansanoj/.github/main/assets/hero-light.svg" alt="Aman Sanoj — Software &amp; Embedded Systems. Swift, TypeScript, Go, and C++." width="100%">
 </picture>
 
 <p align="right"><a href="https://amansanoj.is-a.dev">Website ↗</a> &nbsp; / &nbsp; <a href="https://github.com/amansanoj?tab=repositories">All repositories ↗</a></p>
